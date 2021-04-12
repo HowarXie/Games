@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: 14px "Century Gothic", Futura, sans-serif;
+}
+
+.card {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #d6d3d3;
+    border-radius: 5px;
+    box-shadow: 0px 0px 3px 3px #e8e8e8;
+}
+
+.game {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+}
+
+.game .control-area {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 20px;
+}
+
+a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    white-space: nowrap;
+}

@@ -1,0 +1,13 @@
+.react-games {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.react-games-center {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    overflow: hidden;
+}

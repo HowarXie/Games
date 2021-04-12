@@ -1,0 +1,19 @@
+.react-games-main {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f6f6;
+}
+
+.react-games-main-title {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.react-games-main-content {
+    flex: 1;
+    background-color: #ecffff;
+}

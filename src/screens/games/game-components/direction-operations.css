@@ -1,0 +1,92 @@
+.direction-operations {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    --btnColor: #f0d06b;
+    
+}
+
+.direction-operations.card {
+    border-radius: 50%;
+}
+
+.direction-operations button {
+    background: var(--btnColor);
+    position: relative;
+    margin: 2.5px;
+    border: 0px;
+    box-shadow: 2px 2px 12px var(--shadowColor);
+}
+
+.direction-operations button:focus {
+    outline: 0px;
+    box-shadow: 1px 1px 6px var(--shadowColor);
+}
+
+.direction-operations button::before {
+    content: "";
+    display: block;
+    width: 0px;
+    height: 0px;
+    border: 10px solid;
+    position: absolute;
+}
+
+.up-direction {
+    width: 20px;
+    height: 30px;
+    border-radius: 3px 3px 0 0;
+}
+
+.direction-operations .up-direction::before {
+    border-color: var(--btnColor) transparent transparent;
+    top: 100%;
+    left: 0px;
+}
+
+.horizontal-directions {
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontal-directions button {
+    width: 30px;
+    height: 20px;
+}
+
+.horizontal-directions button.left-direction {
+    border-radius: 3px 0 0 3px;
+    margin-right: 12.5px;
+}
+
+.direction-operations .left-direction::before {
+    border-color: transparent transparent transparent var(--btnColor);
+    top: 0;
+    left: 100%;
+}
+
+.horizontal-directions button.right-direction {
+    border-radius: 0 3px 3px 0;
+    margin-left: 12.5px;
+}
+
+.direction-operations .right-direction::before {
+    border-color: transparent var(--btnColor) transparent transparent;
+    top: 0;
+    right: 100%;
+}
+
+.down-direction {
+    width: 20px;
+    height: 30px;
+    border-radius: 0 0 3px 3px;
+}
+
+.direction-operations .down-direction::before{
+    border-color: transparent transparent var(--btnColor) transparent;
+    bottom: 100%;
+    left: 0;
+}

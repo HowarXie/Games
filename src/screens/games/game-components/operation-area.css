@@ -1,0 +1,8 @@
+.operation-area {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    --shadowColor: #989898;
+}

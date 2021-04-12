@@ -1,0 +1,23 @@
+.manage-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.manage-area button {
+    width: 80px;
+    height: 30px;
+    background-color: #e9967a;
+    border-radius: 15px;
+    margin: 10px;
+    border: 1px;
+    box-shadow: 2px 2px 10px var(--shadowColor);
+}
+
+.manage-area button:focus {
+    box-shadow: 1px 1px 5px var(--shadowColor);
+}
+
+.manage-area button:focus {
+    outline: none;
+}

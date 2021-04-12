@@ -1,0 +1,40 @@
+.react-games-navigation {
+    width: 250px;
+    background-color: #eaf5ff;
+    box-shadow: 1px 0px 3px #e7e7e7;
+    padding: 10px 0;
+}
+
+.ant-menu-item {
+    width: 100%;
+    height: 40px;
+    color: rgba(0, 0, 0, .85);
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.ant-menu-item.ant-menu-item-active, .ant-menu-item.ant-menu-item-selected {
+    color: white;
+    background: linear-gradient(to right, #6ab7fe, #ddefff);
+}
+
+.ant-menu-submenu-title {
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.ant-menu-sub {
+    background-color: #e1f1ff;
+}
+
+.ant-menu-item a {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-icon {
+    margin: 2px 10px 1px 0px;
+}
