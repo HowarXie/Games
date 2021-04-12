@@ -1,11 +1,9 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./image-card.css";
 
 const ImageCard = (props: ImageCardProps): JSX.Element => {
-    const history = useHistory();
-
     return (
         <div className="image-card card">
             <Link
@@ -15,10 +13,10 @@ const ImageCard = (props: ImageCardProps): JSX.Element => {
                 <div className="image-card-picture" >
                     <img src={props.imagePath} alt={props.title}></img>
                 </div>
-                <div className="image-card-message">
-                    <h2 className="image-card-title">{props.title}</h2>
-                    <p>{props.description}</p>
-                </div>
+                <dl className="image-card-message">
+                    <dt className="image-card-title">{props.title}</dt>
+                    <dd>{props.description}</dd>
+                </dl>
             </Link>
         </div>
     );

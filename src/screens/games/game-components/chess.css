@@ -1,6 +1,6 @@
 .chess {
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: none;
     background-color: transparent;

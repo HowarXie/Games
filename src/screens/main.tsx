@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, useLocation } from "react-router-dom";
 import { navigations, Navigation } from "./index";
+import Home from "./home/home";
 
 import "./main.css";
 
@@ -35,6 +36,7 @@ const Main = (props: { redirect: (path: string) => void }): JSX.Element => {
                         );
                     })
                 }
+                <Route exact path="/" component={Home}></Route>
             </div>
         </main>
     );

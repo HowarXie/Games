@@ -63,7 +63,7 @@ const Game2048 = (): JSX.Element => {
         );
     }, [board]);
 
-    const getGameInfo = useCallback((): JSX.Element => {
+    const getGameInfo = (): JSX.Element => {
         if (gameState === GameState.Start) {
             return (<Fragment>Game Start</Fragment>);
         }
@@ -73,7 +73,7 @@ const Game2048 = (): JSX.Element => {
         }
 
         return (<Fragment>Total: {total} --------------- Game Over</Fragment>);
-    }, [gameState]);
+    };
 
     return (
         <div className="game-2048 game">

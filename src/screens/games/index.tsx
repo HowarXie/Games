@@ -6,29 +6,31 @@ import tictactoe from "./../../content/pictures/tictactoe.png";
 import game2048 from "./../../content/pictures/game2048.png";
 import blackWhiteChess from "./../../content/pictures/blackWhiteChess.png";
 
+const gamePath = "/games";
+
 //should config the game info after adding a new game
 const gameConfigurations: GameConfiguration[] = [
     {
         title: "Tic-Tac-Toe",
-        name: "Tictactoe",
+        name: "tictactoe",
         imagePath: tictactoe,
         discription: "PVE game",
-        to: "",
+        to: gamePath + "/tictactoe",
         component: (props: any) => <TicTacToe {...props}></TicTacToe>
     },
     {
         title: "2048",
-        name: "Game2048",
+        name: "game2048",
         imagePath: game2048,
-        to: "",
+        to: gamePath + "/game2048",
         component: (props: any) => <Game2048 {...props}></Game2048>
     },
     {
         title: "Black White Chess",
-        name: "BlackWhiteChess",
+        name: "blackWhiteChess",
         imagePath: blackWhiteChess,
         discription: "PVP game",
-        to: "",
+        to: gamePath + "/blackWhiteChess",
         component: (props: any) => <BlackWhiteChess {...props}></BlackWhiteChess>
     }
 ];

@@ -13,7 +13,7 @@ const Home = (props: { redirect: (path: string) => void }): JSX.Element => {
                         <ImageCard
                             key={index}
                             clickHanlder={props.redirect}
-                            path={"/Games/" + config.name}
+                            path={config.to}
                             imagePath={config.imagePath}
                             title={config.title}
                             description={config.discription}

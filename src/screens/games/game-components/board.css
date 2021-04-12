@@ -1,4 +1,14 @@
 .game-board {
-    border-spacing: 5px;
-    border-collapse: separate;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+
+.game-board-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.game-board-cell {
+    margin: 4px;
 }

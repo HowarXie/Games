@@ -1,11 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Key } from "react";
 import { Menu } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import { Navigation, navigations } from "./index";
 
 import "./navigation-menu.css";
 
-const findKeys = (navigations: Navigation[], path: string): [string, string[]] => {
+const findKeys = (navigations: Navigation[], path: string): [Key, Key[]] => {
     for (let nav of navigations) {
         if (nav?.to === path) {
             return [nav.key, []];
@@ -25,8 +25,8 @@ const findKeys = (navigations: Navigation[], path: string): [string, string[]] =
 const NavigationMenu = (props: { redirect: (path: string) => void }): JSX.Element => {
     const loc = useLocation();
 
-    let [selectKey, openKeys] = findKeys(navigations, loc.pathname);
-    selectKey = selectKey || "/Home";
+    let [selectedKey, openedKeys] = findKeys(navigations, loc.pathname);
+    selectedKey = selectedKey || navigations[0].key;
 
     const getMenuItems = (navigations: Navigation[]): JSX.Element => {
         return (
@@ -60,8 +60,8 @@ const NavigationMenu = (props: { redirect: (path: string) => void }): JSX.Elemen
                 theme="light"
                 triggerSubMenuAction="click"
                 mode="inline"
-                defaultSelectedKeys={[selectKey]}
-                defaultOpenKeys={openKeys}
+                selectedKeys={[selectedKey as string]}
+                defaultOpenKeys={openedKeys as string[]}
             >
                 {getMenuItems(navigations)}
             </Menu>

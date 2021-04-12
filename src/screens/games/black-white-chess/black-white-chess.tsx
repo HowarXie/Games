@@ -89,7 +89,10 @@ const BlackWhiteChess = (): JSX.Element => {
         if (gameState === GameState.Playing) {
             return (
                 <Fragment>
-                    <p className="message">Next Player: {current?.nextChess === ChessState.White ? "White" : "Black"}</p>
+                    <p className="message">
+                        <span>Next Player:</span>
+                        <Chess chessState={current?.nextChess ?? initNextChess}></Chess>
+                    </p>
                     <p className="message">White: {whiteCount} ----------- {blackCount} : Black</p>
                 </Fragment>
             );
@@ -97,7 +100,10 @@ const BlackWhiteChess = (): JSX.Element => {
 
         return (
             <Fragment>
-                <p className="message">Winner: {whiteCount > blackCount ? "White" : "Black"}</p>
+                <p className="message">Winner: {whiteCount > blackCount ? "White" : "Black"}
+                    <span>Winner:</span>
+                    <Chess chessState={whiteCount > blackCount ? ChessState.White : ChessState.Black}></Chess>
+                </p>
                 <p className="message">White: {whiteCount} ----------- {blackCount} :Black</p>
             </Fragment>
         );
@@ -209,7 +215,7 @@ function getFilpPositions(board: Board<ChessState>, startPostion: position, cond
     return positions;
 }
 
-function getPutPositions(board: Board<ChessState>, startPostion: position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) =>position): position[] {
+function getPutPositions(board: Board<ChessState>, startPostion: position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) => position): position[] {
     let [i, j] = startPostion;
     let positions: position[] = [];
     let canPut = false;

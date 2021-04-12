@@ -1,12 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import "./game-info.css";
 
-const GameInfo = (props: { children: JSX.Element }): JSX.Element => {
+const GameInfo = memo((props: { getGameInfo: () => JSX.Element }): JSX.Element => {
     return (
         <div className="card">
-            <div className="game-info">{props.children}</div>
+            <div className="game-info">{props.getGameInfo()}</div>
         </div>
     );
-}
+})
 
 export default GameInfo;

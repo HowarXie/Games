@@ -4,4 +4,13 @@
 
 .black-white-chess .message {
     padding: 2px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.black-white-chess .message .chess {
+    width: 20px;   
+    height: 20px;
+    margin: 0 5px;
 }

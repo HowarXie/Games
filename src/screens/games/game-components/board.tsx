@@ -3,20 +3,20 @@ import Square from "./square";
 import "./board.css";
 
 const BoardColumn = (props: BoardColumnProps) => (
-    <td className="game-board-cell">
+    <div className="game-board-cell">
         <Square onClick={() => {
             if (props.onClick) {
                 props.onClick(props.row, props.column);
             }
         }}>{props.render(props.row, props.column)}</Square>
-    </td>
+    </div>
 );
 
 const BoardRow = (props: BoardRowProps) => {
     const nums = new Array(props.size).fill(0);
     console.log("render row");
     return (
-        <tr className="game-board-row">
+        <li className="game-board-row">
             {
                 nums.map((num, column) => {
                     return (
@@ -24,7 +24,7 @@ const BoardRow = (props: BoardRowProps) => {
                     );
                 })
             }
-        </tr>
+        </li>
     );
 }
 
@@ -33,17 +33,15 @@ const GameBoard = (props: BoardProps): JSX.Element => {
 
     return (
         <div className="card">
-            <table className="game-board">
-                <tbody>
-                    {
-                        nums.map((num, index) => {
-                            return (
-                                <BoardRow key={index} row={index} {...props} ></BoardRow>
-                            );
-                        })
-                    }
-                </tbody>
-            </table>
+            <ul className="game-board">
+                {
+                    nums.map((num, index) => {
+                        return (
+                            <BoardRow key={index} row={index} {...props} ></BoardRow>
+                        );
+                    })
+                }
+            </ul>
         </div>
     );
 };

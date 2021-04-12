@@ -9,7 +9,7 @@ export const navigations: Navigation[] = [
         key: "home",
         title: "Home",
         icon: <HomeOutlined className="nav-icon" />,
-        to: "/Home",
+        to: "/home",
         component: (props: any) => <Home {...props}></Home>
     },
     {
@@ -20,7 +20,7 @@ export const navigations: Navigation[] = [
             return {
                 key: c.name,
                 title: c.title,
-                to: "/Games/" + c.name,
+                to: c.to,
                 component: (props: any) => c.component(props)
             }
         }),
@@ -29,7 +29,7 @@ export const navigations: Navigation[] = [
         key: "pay",
         title: "Pay",
         icon: <PayCircleOutlined className="nav-icon" />,
-        to: "/Pay",
+        to: "/pay",
         component: (props: any) => <Pay {...props}></Pay>
     }
 ];
