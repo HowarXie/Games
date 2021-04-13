@@ -24,7 +24,7 @@ export enum Player {
 
 export type Winner = "none" | Player;
 
-export type position = [number, number];
+export type Position = [number, number];
 
 export class Board<T> {
     public size: number;
@@ -65,8 +65,8 @@ export class Board<T> {
         })
     }
 
-    public getElementPositions(element: T): position[] {
-        const positions: position[] = [];
+    public getElementPositions(element: T): Position[] {
+        const positions: Position[] = [];
 
         this.forEach((row, col, x, y) => {
             if (col === element) {

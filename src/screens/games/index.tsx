@@ -1,6 +1,7 @@
 import TicTacToe from "./tic-tac-toe/tic-tac-toe";
 import Game2048 from "./game-2048/game-2048";
 import BlackWhiteChess from "./black-white-chess/black-white-chess";
+import GameSnake from "./snake/game-snake";
 
 import tictactoe from "./../../content/pictures/tictactoe.png";
 import game2048 from "./../../content/pictures/game2048.png";
@@ -32,6 +33,14 @@ const gameConfigurations: GameConfiguration[] = [
         discription: "PVP game",
         to: gamePath + "/blackWhiteChess",
         component: (props: any) => <BlackWhiteChess {...props}></BlackWhiteChess>
+    },
+    {
+        title: "Snake",
+        name: "snake",
+        imagePath: "#",
+        discription: "",
+        to: gamePath + "/snake",
+        component: (props: any) => <GameSnake {...props}></GameSnake>
     }
 ];
 

@@ -18,7 +18,7 @@ let timeId: number;
 
 const boardSize = 3;
 const thinkingTime = 1000 // person regret chess time
-const initPlayer = Player.Computer;
+const initPlayer = Player.Person;
 const initBoard = new Board(boardSize, ChessSymbol.noneSymbol);
 
 const TicTacToe = (): JSX.Element => {
@@ -31,6 +31,7 @@ const TicTacToe = (): JSX.Element => {
     }, []);
 
     const gameStart = () => {
+        window.clearTimeout(timeId);
         setGameState(GameState.Playing);
         setPlayer(initPlayer);
         if (player === Player.Computer) {
@@ -40,9 +41,9 @@ const TicTacToe = (): JSX.Element => {
     };
 
     const regret = () => {
+        window.clearTimeout(timeId);
         setPlayer(Player.Person);
         setGameState(GameState.Playing);
-        window.clearTimeout(timeId);
         goBack && goBack();
     };
 
@@ -189,7 +190,7 @@ function calcBestPosition(board: Board<string>): position {
         return positions[0];
     }
 
-    let pos = getDangerPosition(board);
+    let pos = occupyDangerPos(board);
     if (pos[0] >= 0) {
         return pos;
     }
@@ -242,16 +243,23 @@ function getWinGamePositions(board: Board<string>, char: string): position[] {
     return winGamePositions;
 }
 
-function getDangerPosition(board: Board<string>): position {
-    const nonePositions = board.getElementPositions(ChessSymbol.noneSymbol);;
+function occupyDangerPos(board: Board<string>): position {
+    const nonePositions = board.getElementPositions(ChessSymbol.noneSymbol);
 
     for (let pos of nonePositions) {
         const cloneBoard = board.clone();
-        cloneBoard.put(pos[0], pos[1], ChessSymbol.personSymbol);
+        cloneBoard.put(pos[0], pos[1], ChessSymbol.computerSymbol);
 
-        const winGamePositions = getWinGamePositions(cloneBoard, ChessSymbol.personSymbol);
+        const winGamePositions = getWinGamePositions(cloneBoard, ChessSymbol.computerSymbol);
         if (winGamePositions.length > 1) {
-            return winGamePositions[MathUtil.getRandomInt(2)];
+            return pos;
+        }
+
+        if (winGamePositions.length === 1) {
+            cloneBoard.put(winGamePositions[0][0], winGamePositions[0][1], ChessSymbol.personSymbol);
+            if (getWinGamePositions(cloneBoard, ChessSymbol.personSymbol).length < 2) {
+                return pos;
+            }
         }
     }
 

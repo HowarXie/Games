@@ -89,10 +89,10 @@ const BlackWhiteChess = (): JSX.Element => {
         if (gameState === GameState.Playing) {
             return (
                 <Fragment>
-                    <p className="message">
+                    <div className="message">
                         <span>Next Player:</span>
                         <Chess chessState={current?.nextChess ?? initNextChess}></Chess>
-                    </p>
+                    </div>
                     <p className="message">White: {whiteCount} ----------- {blackCount} : Black</p>
                 </Fragment>
             );
@@ -100,10 +100,10 @@ const BlackWhiteChess = (): JSX.Element => {
 
         return (
             <Fragment>
-                <p className="message">Winner: {whiteCount > blackCount ? "White" : "Black"}
+                <div className="message">Winner: {whiteCount > blackCount ? "White" : "Black"}
                     <span>Winner:</span>
                     <Chess chessState={whiteCount > blackCount ? ChessState.White : ChessState.Black}></Chess>
-                </p>
+                </div>
                 <p className="message">White: {whiteCount} ----------- {blackCount} :Black</p>
             </Fragment>
         );

@@ -16,4 +16,5 @@
 .react-games-main-content {
     flex: 1;
     background-color: #ecffff;
+    overflow-y: auto;
 }

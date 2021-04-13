@@ -5,6 +5,23 @@
     font: 14px "Century Gothic", Futura, sans-serif;
 }
 
+*::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 6px;
+    background-color: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    background-color: #b1b1b1;
+}
+
 .card {
     margin: 5px;
     padding: 5px;
@@ -25,8 +42,8 @@
     justify-content: center;
 }
 
-.game .control-area {
-    display: flex;
+.control-area {
+    display: inline-flex;
     flex-direction: column;
     margin: 5px 20px;
 }
