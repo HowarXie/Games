@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useState } from "react";
-import { ChessState, Board, GameState, position } from "../infrastructure";
+import { ChessState, Board, GameState, Position } from "../infrastructure";
 import GameBoard from "../game-components/board";
 import Chess from "../game-components/chess";
 import useHistory from "../../../hooks/useHistory";
@@ -118,7 +118,6 @@ const BlackWhiteChess = (): JSX.Element => {
             <GameController
                 getGameInfo={renderGameInfo}
                 start={gameStart}
-                gameState={gameState ?? GameState.Playing}
                 historyManager={
                     {
                         goBack: () => { goBack && goBack() },
@@ -141,49 +140,49 @@ function initBoard(): Board<ChessState> {
     return board;
 }
 
-function getFlipOrPutPositions(board: Board<ChessState>, position: position, flip: boolean): position[] {
+function getFlipOrPutPositions(board: Board<ChessState>, Position: Position, flip: boolean): Position[] {
     const getPositions = flip ? getFilpPositions : getPutPositions;
-    let allPositions: position[] = [];
+    let allPositions: Position[] = [];
 
     //left
-    let positions = getPositions(board, position, (x, y) => y >= 0, (x, y) => [x, y - 1]);
+    let positions = getPositions(board, Position, (x, y) => y >= 0, (x, y) => [x, y - 1]);
     allPositions = allPositions.concat(positions);
 
     //right
-    positions = getPositions(board, position, (x, y) => y < board.size, (x, y) => [x, y + 1]);
+    positions = getPositions(board, Position, (x, y) => y < board.size, (x, y) => [x, y + 1]);
     allPositions = allPositions.concat(positions);
 
     //up
-    positions = getPositions(board, position, (x, y) => x >= 0, (x, y) => [x - 1, y]);
+    positions = getPositions(board, Position, (x, y) => x >= 0, (x, y) => [x - 1, y]);
     allPositions = allPositions.concat(positions);
 
     //down
-    positions = getPositions(board, position, (x, y) => x < board.size, (x, y) => [x + 1, y]);
+    positions = getPositions(board, Position, (x, y) => x < board.size, (x, y) => [x + 1, y]);
     allPositions = allPositions.concat(positions);
 
     //left-up
-    positions = getPositions(board, position, (x, y) => x >= 0 && y >= 0, (x, y) => [x - 1, y - 1]);
+    positions = getPositions(board, Position, (x, y) => x >= 0 && y >= 0, (x, y) => [x - 1, y - 1]);
     allPositions = allPositions.concat(positions);
 
     //right-up
-    positions = getPositions(board, position, (x, y) => x >= 0 && y < board.size, (x, y) => [x - 1, y + 1]);
+    positions = getPositions(board, Position, (x, y) => x >= 0 && y < board.size, (x, y) => [x - 1, y + 1]);
     allPositions = allPositions.concat(positions);
 
     //left-down
-    positions = getPositions(board, position, (x, y) => x < board.size && y >= 0, (x, y) => [x + 1, y - 1]);
+    positions = getPositions(board, Position, (x, y) => x < board.size && y >= 0, (x, y) => [x + 1, y - 1]);
     allPositions = allPositions.concat(positions);
 
 
     //right-down
-    positions = getPositions(board, position, (x, y) => x < board.size && y < board.size, (x, y) => [x + 1, y + 1]);
+    positions = getPositions(board, Position, (x, y) => x < board.size && y < board.size, (x, y) => [x + 1, y + 1]);
     allPositions = allPositions.concat(positions);
 
     return allPositions;
 }
 
-function getFilpPositions(board: Board<ChessState>, startPostion: position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) => position): position[] {
+function getFilpPositions(board: Board<ChessState>, startPostion: Position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) => Position): Position[] {
     let [i, j] = startPostion;
-    let positions: position[] = [];
+    let positions: Position[] = [];
     let canFlip = false;
     const sourceChess = board.get(i, j);
     [i, j] = loop(i, j);
@@ -215,9 +214,9 @@ function getFilpPositions(board: Board<ChessState>, startPostion: position, cond
     return positions;
 }
 
-function getPutPositions(board: Board<ChessState>, startPostion: position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) => position): position[] {
+function getPutPositions(board: Board<ChessState>, startPostion: Position, condition: (x: number, y: number) => boolean, loop: (x: number, y: number) => Position): Position[] {
     let [i, j] = startPostion;
-    let positions: position[] = [];
+    let positions: Position[] = [];
     let canPut = false;
     const sourceChess = board.get(i, j);
     [i, j] = loop(i, j)
@@ -252,10 +251,10 @@ function getPutPositions(board: Board<ChessState>, startPostion: position, condi
     return positions;
 }
 
-function getAllPutPositions(board: Board<ChessState>, chess: ChessState): position[] {
+function getAllPutPositions(board: Board<ChessState>, chess: ChessState): Position[] {
     const chessPositions = board.getElementPositions(chess);
 
-    let putPositions: position[] = [];
+    let putPositions: Position[] = [];
     chessPositions.forEach(pos => {
         putPositions = putPositions.concat(getFlipOrPutPositions(board, pos, false));
     })

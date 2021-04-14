@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useCallback } from "react";
 import MathUtil from "../../../utils/math-util";
-import { GameState, Direction, Board, position } from "../infrastructure";
+import { GameState, Direction, Board, Position } from "../infrastructure";
 import GameController from "../game-components/game-controller";
 import GameBoard from "../game-components/board";
 import useHistory from "../../../hooks/useHistory";
@@ -82,7 +82,6 @@ const Game2048 = (): JSX.Element => {
                 getGameInfo={getGameInfo}
                 moveTo={(direction: Direction) => moveTo(direction)}
                 start={gameStart}
-                gameState={gameState ?? GameState.Playing}
                 historyManager={
                     {
                         goBack: () => { goBack && goBack() },
@@ -94,7 +93,7 @@ const Game2048 = (): JSX.Element => {
     );
 }
 
-function randomPosition(board: Board<number>): position {
+function randomPosition(board: Board<number>): Position {
     const validPositions = board.getElementPositions(0);
     const index = MathUtil.getRandomInt(validPositions.length);
     return validPositions[index];

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import useHistory from "../../../hooks/useHistory";
-import { GameState, Board, Player, Winner, position } from "../infrastructure";
+import { GameState, Board, Player, Winner, Position } from "../infrastructure";
 import GameBoard from "../game-components/board";
 import MathUtil from "../../../utils/math-util";
 import GameController from "../game-components/game-controller";
@@ -116,7 +116,6 @@ const TicTacToe = (): JSX.Element => {
             <GameController
                 getGameInfo={getGameInfo}
                 start={gameStart}
-                gameState={gameState ?? GameState.Playing}
                 historyManager={
                     {
                         goBack: regret,
@@ -178,7 +177,7 @@ function isBoardFull(board: Board<string>): boolean {
     return isFull;
 }
 
-function calcBestPosition(board: Board<string>): position {
+function calcBestPosition(board: Board<string>): Position {
     let positions = getWinGamePositions(board, ChessSymbol.computerSymbol);
 
     if (positions.length > 0) {
@@ -198,9 +197,9 @@ function calcBestPosition(board: Board<string>): position {
     return getWeightPosition(board);
 }
 
-function getWinGamePositions(board: Board<string>, char: string): position[] {
-    const winGamePositions: position[] = [];
-    const charPositions = board.getElementPositions(char);;
+function getWinGamePositions(board: Board<string>, char: string): Position[] {
+    const winGamePositions: Position[] = [];
+    const charPositions = board.getElementPositions(char);
 
     let positions = charPositions.filter(pos => pos[0] === pos[1]);
     if (positions.length === 2) {
@@ -243,7 +242,7 @@ function getWinGamePositions(board: Board<string>, char: string): position[] {
     return winGamePositions;
 }
 
-function occupyDangerPos(board: Board<string>): position {
+function occupyDangerPos(board: Board<string>): Position {
     const nonePositions = board.getElementPositions(ChessSymbol.noneSymbol);
 
     for (let pos of nonePositions) {
@@ -251,13 +250,13 @@ function occupyDangerPos(board: Board<string>): position {
         cloneBoard.put(pos[0], pos[1], ChessSymbol.computerSymbol);
 
         const winGamePositions = getWinGamePositions(cloneBoard, ChessSymbol.computerSymbol);
-        if (winGamePositions.length > 1) {
+        if (winGamePositions.length > 1) { //if occupy this position, compouter will have more than 1 ways to win game.
             return pos;
         }
 
         if (winGamePositions.length === 1) {
             cloneBoard.put(winGamePositions[0][0], winGamePositions[0][1], ChessSymbol.personSymbol);
-            if (getWinGamePositions(cloneBoard, ChessSymbol.personSymbol).length < 2) {
+            if (getWinGamePositions(cloneBoard, ChessSymbol.personSymbol).length < 2) { //if occupy this position, person only has 1 way to win game
                 return pos;
             }
         }
@@ -266,8 +265,8 @@ function occupyDangerPos(board: Board<string>): position {
     return [-1, -1];
 }
 
-function getWeightPosition(board: Board<string>): position {
-    const positionWeights: { [key: number]: position[] } = {
+function getWeightPosition(board: Board<string>): Position {
+    const positionWeights: { [key: number]: Position[] } = {
         10: [[1, 1]],
         5: [[0, 0], [0, 2], [2, 0], [2, 2]],
         1: [[0, 1], [1, 0], [1, 2], [2, 1]]

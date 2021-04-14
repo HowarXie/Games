@@ -10,7 +10,7 @@ const GameSnake = (): JSX.Element => {
     useEffect(() => {
         const canvasEle = canvasEleRef.current;
         if (canvasEle) {
-            const canvsCtx = canvasEle.getContext("2d");
+            const canvasCtx = canvasEle.getContext("2d");
         }
     }, [])
 
@@ -32,7 +32,7 @@ const GameSnake = (): JSX.Element => {
     }, [gameState]);
 
     const moveTo = (direction: Direction) => {
-
+        //TO DO
     };
 
     const gameStart = () => {
@@ -50,7 +50,6 @@ const GameSnake = (): JSX.Element => {
                 getGameInfo={getGameInfo}
                 moveTo={(direction: Direction) => moveTo(direction)}
                 start={gameStart}
-                gameState={gameState ?? GameState.Playing}
             ></GameController>
         </div>
     );
