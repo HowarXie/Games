@@ -8,18 +8,18 @@ import GameController from "../game-components/game-controller";
 import "./black-white-chess.css";
 
 const boardSize = 8;
-const initNextChess = ChessState.White;
+const initNextPlayer = ChessState.White;
 
 const BlackWhiteChess = (): JSX.Element => {
     const [gameState, setGameState] = useState(GameState.Start);
     const [{ current, history }, { goBack, record, clear }] = useHistory<BlackWhiteChessHistory>(
         {
-            nextChess: initNextChess,
+            nextPlayer: initNextPlayer,
             board: initBoard()
         },
         oldValue => {
             return {
-                nextChess: oldValue.nextChess,
+                nextPlayer: oldValue.nextPlayer,
                 board: oldValue.board.clone()
             }
         }
@@ -27,7 +27,7 @@ const BlackWhiteChess = (): JSX.Element => {
 
     const gameStart = () => {
         setGameState(GameState.Playing);
-        clear && clear({ nextChess: initNextChess, board: initBoard() });
+        clear && clear({ nextPlayer: initNextPlayer, board: initBoard() });
     };
 
     const putChess = (x: number, y: number) => {
@@ -36,30 +36,30 @@ const BlackWhiteChess = (): JSX.Element => {
         const cloneBoard = current?.board?.clone() ?? new Board<ChessState>(boardSize, ChessState.None);
         if (cloneBoard.get(x, y) !== ChessState.None) return;
 
-        let nextChess = current?.nextChess ?? ChessState.White
-        cloneBoard.put(x, y, nextChess);
-        const canPutPositions = getFlipOrPutPositions(cloneBoard, [x, y], true);
-        if (canPutPositions.length === 0) return;
+        let nextPlayer = current?.nextPlayer ?? ChessState.White
+        cloneBoard.put(x, y, nextPlayer);
+        const flipPositions = getFlipOrPutPositions(cloneBoard, [x, y], true);
+        if (flipPositions.length === 0) return;
 
-        canPutPositions.forEach(pos => cloneBoard.put(pos[0], pos[1], nextChess));
-        nextChess = getNextChess(cloneBoard, -nextChess)
-        record && record({ nextChess: nextChess, board: cloneBoard });
+        flipPositions.forEach(pos => cloneBoard.put(pos[0], pos[1], nextPlayer));
+        nextPlayer = getNextPlayer(cloneBoard, -nextPlayer)
+        record && record({ nextPlayer: nextPlayer, board: cloneBoard });
     };
 
-    const getNextChess = (board: Board<ChessState>, nextChess: ChessState): ChessState => {
-        let canPutPositions = getAllPutPositions(board, nextChess);
+    const getNextPlayer = (board: Board<ChessState>, nextPlayer: ChessState): ChessState => {
+        let canPutPositions = getAllPutPositions(board, nextPlayer);
 
-        if (canPutPositions.length === 0) {
-            canPutPositions = getAllPutPositions(board, -nextChess);
+        if (canPutPositions.length === 0) { //competitor don't have position to put chess
+            canPutPositions = getAllPutPositions(board, -nextPlayer);
 
             if (canPutPositions.length === 0) {
                 setGameState(GameState.End);
                 return ChessState.None;
             }
 
-            return -nextChess;
+            return -nextPlayer;
         } else {
-            return nextChess;
+            return nextPlayer;
         }
     };
 
@@ -91,7 +91,7 @@ const BlackWhiteChess = (): JSX.Element => {
                 <Fragment>
                     <div className="message">
                         <span>Next Player:</span>
-                        <Chess chessState={current?.nextChess ?? initNextChess}></Chess>
+                        <Chess chessState={current?.nextPlayer ?? initNextPlayer}></Chess>
                     </div>
                     <p className="message">White: {whiteCount} ----------- {blackCount} : Black</p>
                 </Fragment>
@@ -263,7 +263,7 @@ function getAllPutPositions(board: Board<ChessState>, chess: ChessState): Positi
 }
 
 interface BlackWhiteChessHistory {
-    nextChess: ChessState,
+    nextPlayer: ChessState,
     board: Board<ChessState>
 }
 
