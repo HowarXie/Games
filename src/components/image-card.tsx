@@ -8,7 +8,10 @@ const ImageCard = (props: ImageCardProps): JSX.Element => {
         <div className="image-card card">
             <Link
                 to={props.path}
-                onClick={(e) => { e.preventDefault(); props.clickHandler(props.path); }}
+                onClick={(e) => {
+                    e.preventDefault();
+                    props.clickHandler(props.path);
+                }}
             >
                 <div className="image-card-picture" >
                     <img src={props.imagePath} alt={props.title}></img>

@@ -27,7 +27,7 @@ const Main = (props: { redirect: (path: string) => void }): JSX.Element => {
 
     return (
         <main className="react-games-main">
-            <h2 className="react-games-main-title">{location.pathname.slice(1)}</h2>
+            <h2 className="react-games-main-title">{location.pathname.slice(1) || "home"}</h2>
             <div className="react-games-main-content">
                 {
                     validNavigations.map(nav => {
@@ -36,7 +36,7 @@ const Main = (props: { redirect: (path: string) => void }): JSX.Element => {
                         );
                     })
                 }
-                <Route exact path="/" component={Home}></Route>
+                <Route exact path="/" render={() => <Home {...props}></Home>}></Route>
             </div>
         </main>
     );

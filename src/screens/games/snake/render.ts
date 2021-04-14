@@ -1,16 +1,13 @@
-import { Position } from "../infrastructure";
+import { Position, Direction } from "../infrastructure";
 
 export const width = 800;
 export const height = 600;
-
-export function drawRects(ctx: CanvasRenderingContext2D, locs: Position[]) {
-
-}
 
 export class Snake {
     private readonly nodeWidth = 20;
     private readonly nodeHeight = 20;
 
+    private curDirection = Direction.Right;
     private ctx: CanvasRenderingContext2D;
     private locs: Position[] = [];
 
@@ -20,5 +17,20 @@ export class Snake {
 
     private initLocs() {
 
+    }
+
+    public move(direction: Direction) {
+        switch (direction) {
+            case Direction.Left:
+            case Direction.Right:
+                if (this.curDirection === Direction.Left || this.curDirection === Direction.Right) return;
+                break;
+            case Direction.Up:
+            case Direction.Down:
+                if (this.curDirection === Direction.Up || this.curDirection === Direction.Down) return;
+                break;
+        }
+
+        this.curDirection = direction;
     }
 }
