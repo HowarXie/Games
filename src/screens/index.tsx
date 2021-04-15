@@ -40,5 +40,5 @@ export interface Navigation {
     to?: string;
     icon?: JSX.Element;
     items?: Navigation[];
-    component?: (props: any) => JSX.Element;
+    component?: (props?: any) => JSX.Element;
 }

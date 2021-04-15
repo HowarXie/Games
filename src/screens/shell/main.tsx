@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, useLocation } from "react-router-dom";
-import { navigations, Navigation } from "./index";
-import Home from "./home/home";
+import { navigations, Navigation } from "../index";
+import Home from "../home/home";
 
 import "./main.css";
 
@@ -21,7 +21,7 @@ function getValidNavs(navs: Navigation[]): Navigation[] {
     return validNavs;
 }
 
-const Main = (props: { redirect: (path: string) => void }): JSX.Element => {
+const Main = (): JSX.Element => {
     const location = useLocation();
     const validNavigations = getValidNavs(navigations);
 
@@ -32,11 +32,11 @@ const Main = (props: { redirect: (path: string) => void }): JSX.Element => {
                 {
                     validNavigations.map(nav => {
                         return (
-                            <Route exact path={nav.to} render={() => nav.component && nav.component(props)} key={nav.key}></Route>
+                            <Route exact path={nav.to} render={() => nav.component && nav.component()} key={nav.key}></Route>
                         );
                     })
                 }
-                <Route exact path="/" render={() => <Home {...props}></Home>}></Route>
+                <Route exact path="/" component={Home}></Route>
             </div>
         </main>
     );

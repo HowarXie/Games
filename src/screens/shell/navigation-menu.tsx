@@ -1,7 +1,9 @@
-import React, { Fragment, Key } from "react";
+import React, { Fragment, Key, useEffect, useContext, useState } from "react";
 import { Menu } from "antd";
-import { Link, useLocation } from "react-router-dom";
-import { Navigation, navigations } from "./index";
+import { Link, useHistory } from "react-router-dom";
+import { Navigation, navigations } from "../index";
+import { EventContext } from "../context";
+import { UpdateNavMenuEvent } from "../../status-manager/events";
 
 import "./navigation-menu.css";
 
@@ -22,11 +24,22 @@ const findKeys = (navigations: Navigation[], path: string): [Key, Key[]] => {
     return ["", []];
 }
 
-const NavigationMenu = (props: { redirect: (path: string) => void }): JSX.Element => {
-    const loc = useLocation();
+const NavigationMenu = (): JSX.Element => {
+    const history = useHistory();
+    const eventAggregator = useContext(EventContext);
 
-    let [selectedKey, openedKeys] = findKeys(navigations, loc.pathname);
-    selectedKey = selectedKey || navigations[0].key;
+    const [curKey, openedKeys] = findKeys(navigations, history.location.pathname);
+    const [selectedKey, setSelectedKey] = useState(curKey || navigations[0].key);
+
+    useEffect(() => {
+        return eventAggregator.subsribe(new UpdateNavMenuEvent(), updateUrl)
+    });
+
+    const updateUrl = (path: string) => {
+        history.push(path);
+        const [curKey] = findKeys(navigations, path);
+        setSelectedKey(curKey);
+    };
 
     const getMenuItems = (navigations: Navigation[]): JSX.Element => {
         return (
@@ -42,11 +55,11 @@ const NavigationMenu = (props: { redirect: (path: string) => void }): JSX.Elemen
                         return <Menu.Item
                             key={nav.key}
                             title={nav.title}
-                            onClick={() => { props.redirect(nav.to ?? "#") }}
+                            onClick={() => { updateUrl(nav.to ?? "#") }}
                             onItemHover={() => { }}
                             icon={nav.icon}
                         >
-                            <Link to={nav.to ?? "#"}>{nav.title}</Link>
+                            <Link to={nav.to ?? "#"} onClick={(e) => { e.preventDefault(); }}>{nav.title}</Link>
                         </Menu.Item>;
                     })
                 }
